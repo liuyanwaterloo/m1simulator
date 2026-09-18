@@ -1,4 +1,11 @@
 .vercel/
+public/
+firmware/
+assets/
+tests/
+tools/
+package.json
+package-lock.json
 node_modules/
 artifacts/
 __pycache__/

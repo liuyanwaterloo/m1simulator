@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>M1 · 菜单模拟器</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141b25'/%3E%3Cpath d='M6 23V9l6 8 6-8v14m7-14v14' fill='none' stroke='%238ec5ff' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">M1<span>MENU DEMO</span></div>
+      <span class="header-note">灯具菜单 · 交互演示</span
+      ><span class="badge">内部演示</span>
+    </header>
+    <main>
+      <section class="workbench">
+        <div class="section-line">
+          <h1>菜单模拟器</h1>
+          <span>选择语言，体验灯具菜单</span>
+        </div>
+        <div class="toolbar" role="group" aria-label="模拟器控制">
+          <div class="toolbar-heading">模拟器控制<span>仅影响网页模拟</span></div>
+          <div class="control-grid">
+            <div class="control-card control-language">
+              <label class="control-title" for="locale"><span class="control-icon" aria-hidden="true">文</span>显示语言</label>
+              <select id="locale">
+                <option value="en">English</option>
+              </select>
+            </div>
+            <button id="reboot" class="control-card control-reboot" type="button">
+              <span class="control-title"><span class="control-icon" aria-hidden="true">↻</span>模拟断电重启</span>
+              <span class="control-description">重新载入已保存参数</span>
+            </button>
+            <button id="sleep" class="control-card control-backlight" type="button">
+              <span class="control-title"><span class="control-icon" aria-hidden="true">☼</span>关闭背光</span>
+              <span id="backlight-status" class="control-description">当前亮屏 · 点击关闭</span>
+            </button>
+          </div>
+        </div>
+        <div class="device">
+          <div class="device-label">
+            <span>STRYKER MAX</span><span>M1 / DISPLAY</span>
+          </div>
+          <div class="screen-frame">
+            <canvas
+              id="lcd"
+              width="160"
+              height="128"
+              role="img"
+              aria-label="M1 菜单显示屏"
+            ></canvas>
+          </div>
+          <div class="buttons">
+            <button data-key="menu"><span>◀</span>MENU</button
+            ><button data-key="up"><span>▲</span>UP</button
+            ><button data-key="down"><span>▼</span>DOWN</button
+            ><button data-key="enter"><span>▶</span>ENTER</button>
+          </div>
+        </div>
+        <p class="keyboard">
+          键盘：Esc 返回 · ↑ ↓ 移动 / 调值 · Enter 确认 · 支持长按
+        </p>
+        <p id="hint" class="hint" aria-live="polite"></p>
+        <p class="muted demo-notice">本页面仅供内部功能演示，不连接真实灯具。显示效果与部分状态为模拟，请以实际设备为准。</p>
+        
+      </section>
+      
+    </main>
+    <footer>内部评估使用 · 请勿转发或擅自复制 <a href="notices.txt">资源许可说明</a></footer>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
