@@ -1,5 +1,7 @@
 .vercel/
 node_modules/
+artifacts/
+__pycache__/
 .env
 .env.*
 !.env.example

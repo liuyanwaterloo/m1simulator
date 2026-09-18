@@ -6,6 +6,11 @@ const source = await fetch("./generated/source.json").then((r) => {
   if (!r.ok) throw Error("Source data unavailable");
   return r.json();
 });
+const atlas = await fetch('./generated/menu-font.json').then(r => {
+  if (!r.ok) throw Error('Shared bitmap font unavailable');
+  return r.json();
+});
+source.fonts = atlas.glyphs;
 const model = createModel(source),
   engine = new MenuEngine(model),
   renderer = new DisplayRenderer($("#lcd"), source);
@@ -13,7 +18,7 @@ const localeConfig = await fetch("./locales/overrides.json").then((r) =>
   r.json(),
 );
 for (const lang of localeConfig.languages) {
-  if (!/^[a-z][a-z0-9-]*$/.test(lang.id) || ["en", "zh"].includes(lang.id))
+  if (!/^[a-z][a-z0-9-]*$/.test(lang.id) || lang.id === "en")
     throw Error("Invalid custom language ID");
   const option = document.createElement("option");
   option.value = lang.id;
@@ -33,7 +38,7 @@ function update() {
   renderer.draw(engine, telemetry);
   const e = engine.edit?.entry ?? engine.current;
   const f = source.functions[engine.lastHandler];
-  $("#hint").textContent = engine.note;
+  $("#hint").textContent = [engine.note, ...renderer.warnings].filter(Boolean).join(' · ');
   $("#page-state").textContent =
     {
       home: "地址首页",
@@ -142,8 +147,8 @@ $("#locale").addEventListener("change", (ev) => {
     renderer.locale === "en"
       ? "原版英文；图标和 16px 英文字体来自项目资源。大数字与部分绘制细节近似。"
       : renderer.locale === "zh"
-        ? "中文仅为扩展预览，不是原版可选项；需补齐固件字库与语言入口后才能真机验证。"
-        : "自定义语言预览：与固件语言导出工具读取同一份词条。未翻译的内容保留英文；非现有字库字符禁止直接导出固件。";
+        ? "中文使用固定点阵，与 C 候选字库共用像素和字宽；不是旧版中文字形复刻。大数字仍近似；尚未编译、烧录验证。"
+        : "俄语使用固定点阵，与 C 候选字库共用像素和字宽；短词适配 160×128 小屏。大数字仍近似；尚未编译、烧录验证。";
   update();
 });
 $("#reboot").onclick = () => {
@@ -165,6 +170,11 @@ $("#temperature").oninput = (ev) => {
   update();
 };
 $("#motor-version").oninput = (ev) => {
+  const missing=[...ev.target.value].find(c=>!source.fonts[c]);
+  if(missing) {
+    $("#hint").textContent=`测试版本号含缺失字形：${missing}。请先扩充共享字库。`;
+    return;
+  }
   telemetry.version = ev.target.value;
   update();
 };

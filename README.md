@@ -1,6 +1,6 @@
 # M1 菜单模拟器：Vercel 部署
 
-这是独立静态发布包，无需 Keil、固件源目录、环境变量、API Key、数据库或构建步骤。包含 MENU ◀ / ENTER ▶ 的最新网页。
+网页支持英文、中文、俄语；中文和俄文使用固定点阵，不再借用浏览器字体。网页部署无需 Keil、固件源目录、环境变量、API Key、数据库或构建步骤。MENU ◀ / ENTER ▶ 保持不变。
 
 ## 发布包内容
 
@@ -8,7 +8,11 @@
 - `vercel.json`：框架 Other、跳过安装及构建、输出目录 public。
 - `README.md`：本说明，不在 public 中，不作为站点内容提供。
 
-这不是完整开发工程或可烧录固件。完整开发工程仍保存在本机 `menu-simulator` 中。改网页后运行 `node tools/package-vercel.mjs` 可生成新的发布目录，再压缩或发布。
+现在仓库也包含 `tools/` 生成工具、`tests/`、`assets/fonts/` 字体来源及许可、`firmware/shared/` 对应 C 字库。它们不在 public 中，不会作为静态网页发布。
+
+普通网页开发：编辑 public，执行 `npm test`、`npm start`，提交 main。翻译/点阵/固件候选的再生成流程见 [firmware/README.md](firmware/README.md)。这里没有完整原始固件工程，也没有已经验证可烧录的 HEX。
+
+Vercel 关联本仓库 main 后，新提交会触发部署；这里的更新不会改动旧的 chatgpt.site 网站。
 
 ## 必须先确认的保密事项
 

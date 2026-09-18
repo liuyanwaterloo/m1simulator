@@ -26,13 +26,14 @@ export class DisplayRenderer {
     }
   }
   name(e) {
-    return this.locale === "zh"
-      ? e.zh.trim()
-      : (this.custom[e.en.trim()] ?? e.en.trim());
+    return this.custom[e.en.trim()] ?? e.en.trim();
   }
   textWidth(text) {
     return [...text].reduce(
-      (sum, c) => sum + (this.source.fonts[c]?.advance ?? 16),
+      (sum, c) => {
+        if (!this.source.fonts[c]) throw Error(`Missing bitmap glyph: ${c}`);
+        return sum + this.source.fonts[c].advance;
+      },
       0,
     );
   }
@@ -59,11 +60,7 @@ export class DisplayRenderer {
         ctx.globalAlpha = 1;
         x += g.advance;
       } else {
-        ctx.fillStyle = color;
-        ctx.font = '16px "Microsoft YaHei",sans-serif';
-        ctx.textBaseline = "top";
-        ctx.fillText(char, x, y);
-        x += 16;
+        throw Error(`Missing bitmap glyph: ${char}`);
       }
     }
   }
@@ -88,14 +85,15 @@ export class DisplayRenderer {
       c.textBaseline = "top";
       c.fillStyle = "white";
       c.fillText(String(engine.values.address).padStart(3, "0"), 12, 20, 140);
-      this.text(
-        engine.runMode === "dmx"
+      const status = engine.runMode === "dmx"
           ? engine.values.mode
             ? "26CH"
             : "20CH"
           : engine.values.primary
             ? "Secondary"
-            : "Primary",
+            : "Primary";
+      this.text(
+        this.custom[status] ?? status,
         engine.runMode === "dmx" ? 58 : 46,
         110,
       );
@@ -136,7 +134,7 @@ export class DisplayRenderer {
           ? engine.values.mode
             ? "26Ch"
             : "20Ch"
-          : `Primary ${engine.values.program + 1}`,
+          : (this.custom['Primary %d'] ?? 'Primary %d').replace('%d',engine.values.program + 1),
         String(telemetry.temperature).padStart(3, "0") + "F",
       ];
       this.source.tables.stInfo.forEach((e, i) =>
@@ -156,9 +154,7 @@ export class DisplayRenderer {
             .slice(start, start + 6)
             .forEach((s, i) =>
               this.row(
-                this.locale === "zh"
-                  ? raw[start + i].trim()
-                  : (this.custom[s.trim()] ?? s.trim()),
+                this.custom[s.trim()] ?? s.trim(),
                 "",
                 i,
                 start + i === draft,
@@ -215,12 +211,12 @@ export class DisplayRenderer {
       let value = "";
       if (e.kind === "group") value = " >";
       else if (e.kind === "action")
-        value = this.locale === "zh" ? "关闭" : "No";
+        value = this.custom.No ?? "No";
       else if (e.kind === "choice") {
         const raw = this.source.arrays[e.array];
         const text =
           raw[
-            (this.locale === "zh" ? 0 : raw.length / 2) + engine.values[e.key]
+            raw.length / 2 + engine.values[e.key]
           ] ?? "?";
         value = this.custom[text.trim()] ?? text.trim();
       } else
