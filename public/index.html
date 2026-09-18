@@ -22,14 +22,24 @@
           <h1>菜单实验台</h1>
           <span>160 × 128 · V1.02 源码基准</span>
         </div>
-        <div class="toolbar">
-          <label
-            >显示语言
-            <select id="locale">
-              <option value="en">English · 原版</option>
-            </select></label
-          ><button id="reboot">模拟断电重启</button
-          ><button id="sleep">关闭背光</button>
+        <div class="toolbar" role="group" aria-label="模拟器控制">
+          <div class="toolbar-heading">模拟器控制<span>仅影响网页模拟</span></div>
+          <div class="control-grid">
+            <div class="control-card control-language">
+              <label class="control-title" for="locale"><span class="control-icon" aria-hidden="true">文</span>显示语言</label>
+              <select id="locale">
+                <option value="en">English · 原版</option>
+              </select>
+            </div>
+            <button id="reboot" class="control-card control-reboot" type="button">
+              <span class="control-title"><span class="control-icon" aria-hidden="true">↻</span>模拟断电重启</span>
+              <span class="control-description">重新载入已保存参数</span>
+            </button>
+            <button id="sleep" class="control-card control-backlight" type="button">
+              <span class="control-title"><span class="control-icon" aria-hidden="true">☼</span>关闭背光</span>
+              <span id="backlight-status" class="control-description">当前亮屏 · 点击关闭</span>
+            </button>
+          </div>
         </div>
         <div class="device">
           <div class="device-label">

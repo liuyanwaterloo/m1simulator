@@ -36,6 +36,9 @@ const escape = (s) =>
   );
 function update() {
   renderer.draw(engine, telemetry);
+  $("#backlight-status").textContent = engine.backlight
+    ? "当前亮屏 · 点击关闭" : "背光已关闭 · 按键唤醒";
+  $("#sleep").dataset.screen = engine.backlight ? "on" : "off";
   const e = engine.edit?.entry ?? engine.current;
   const f = source.functions[engine.lastHandler];
   $("#hint").textContent = [engine.note, ...renderer.warnings].filter(Boolean).join(' · ');
