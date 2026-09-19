@@ -3,25 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="M660 / Vizi FX7 独立视觉方案：菜单结构、点阵显示与四键操作的交互演示。">
-    <title>M660 · 视觉方案演示</title>
+    <meta name="description" content="M660 / Vizi FX7 菜单主题：四种外观共用一套菜单数据，支持四键操作与即时切换。">
+    <title>M660 · 菜单主题</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23164a46'/%3E%3Cpath d='M7 9l9 14 9-14' fill='none' stroke='%2396e5ce' stroke-width='3'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
   </head>
   <body class="visual-demo">
     <header>
-      <div class="brand">MENU<span>VISUAL DEMO</span></div>
-      <span class="header-note">灯具菜单 · 视觉方案</span><span class="badge">内部演示</span>
+      <div class="brand">MENU<span>THEME STUDIO</span></div>
+      <span class="header-note">灯具菜单 · 主题体验</span><span class="badge">内部演示</span>
     </header>
     <main>
       <nav class="demo-pages" aria-label="选择演示方案">
   <a href="index.html"><strong>原板界面演示</strong><span>M1 原版 / M660 适配</span></a>
-  <a href="visual.html" aria-current="page"><strong>视觉方案演示</strong><span>M660 · 独立外观</span></a>
+  <a href="visual.html" aria-current="page"><strong>菜单主题</strong><span>M660 · 四种主题</span></a>
 </nav>
-      <p class="visual-intro">同一套 M660 菜单，另一种显示设计。<br>用于评估根据图片、菜单结构和显示板资料定制界面的方向；本页是视觉方案，不代表原机实测外观或已完成的板上固件。</p>
-      <section id="fixture-m660" class="workbench" aria-label="视觉方案模拟器">
+      <p class="visual-intro"><strong>菜单数据决定内容，菜单主题决定外观。</strong><br>同一套 M660 文字、参数和树状结构，切换主题不丢失当前操作。以下为 160 × 128 显示设计，不代表原机实测外观或已完成的板上固件。</p>
+      <section class="theme-panel" aria-labelledby="theme-heading">
+        <div class="theme-heading"><h2 id="theme-heading">菜单主题</h2><span>4 种主题 · 同一套菜单数据</span></div>
+        <div id="theme-picker" role="radiogroup" aria-label="选择菜单主题"></div>
+        <p id="theme-description" aria-live="polite"></p>
+      </section>
+      <section id="fixture-m660" class="workbench" aria-label="菜单主题模拟器">
   <div class="section-line">
-    <h1>视觉方案演示</h1><span>M660 / Vizi FX7 · 160 × 128</span>
+    <h1>菜单操作体验</h1><span>M660 / Vizi FX7 · 160 × 128</span>
   </div>
   <div class="toolbar" role="group" aria-label="M660 模拟器控制">
     <div class="toolbar-heading">模拟器控制<span>英文菜单 · 仅网页演示</span></div>
@@ -42,7 +47,7 @@
   </div>
   <div class="device">
     <div class="device-label"><span>M660</span><span>CUSTOM VISUAL / DEMO</span></div>
-    <div class="screen-frame"><canvas id="m660-lcd" width="160" height="128" role="img" aria-label="M660 菜单显示屏"></canvas></div>
+    <div class="theme-inline"><label for="theme-quick-select">切换菜单主题</label><select id="theme-quick-select" aria-describedby="theme-inline-note"></select></div><p id="theme-inline-note" class="theme-inline-note">只换外观，不重置当前操作</p><div class="screen-frame"><canvas id="m660-lcd" width="160" height="128" role="img" aria-label="M660 菜单显示屏"></canvas></div>
     <div class="buttons">
       <button type="button" data-m660-key="menu"><span aria-hidden="true">◀</span>MENU</button>
       <button type="button" data-m660-key="up"><span aria-hidden="true">▲</span>UP</button>
@@ -53,7 +58,7 @@
   <p class="keyboard">键盘：Esc 返回 · ↑ ↓ 移动 / 调值 · Enter 确认 · 支持长按</p>
   <div class="m660-caption"><p id="m660-path"></p><p id="m660-selection" aria-live="polite"></p></div>
   <p id="m660-hint" class="hint" aria-live="polite"></p>
-  <p class="muted demo-notice">青绿色列表界面，与原板界面版共用 M660 菜单定义；两页试用值互不影响。<br>改值仅作界面体验；不连接灯具，不执行控制。刷新网页会恢复演示初值。</p>
+  <p class="muted demo-notice">四种菜单主题共用一套菜单数据与按键逻辑；切换主题保留当前值和操作位置。<br>改值仅作界面体验；不连接灯具，不执行控制。刷新网页会恢复演示初值。</p>
 </section>
 
     </main>
