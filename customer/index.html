@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>M1 / M660 · 菜单模拟器</title>
+    <title>M1 / M660 / H7 · 菜单模拟器</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141b25'/%3E%3Cpath d='M6 23V9l6 8 6-8v14m7-14v14' fill='none' stroke='%238ec5ff' stroke-width='3'/%3E%3C/svg%3E"
@@ -18,14 +18,15 @@
     </header>
     <main>
   <nav class="demo-pages" aria-label="选择演示方案">
-  <a href="index.html" aria-current="page"><strong>原板界面演示</strong><span>M1 原版 / M660 适配</span></a>
+  <a href="index.html" aria-current="page"><strong>原板界面演示</strong><span>M1 / M660 / H7</span></a>
   <a href="visual.html"><strong>菜单主题</strong><span>M660 · 四种主题</span></a>
 </nav>
   <div class="fixture-picker">
-    <div class="fixture-picker-label">选择灯具菜单 · 两个模拟器独立运行</div>
+    <div class="fixture-picker-label">选择灯具菜单 · 各模拟器独立运行</div>
     <div class="fixture-tabs" role="tablist" aria-label="选择灯具">
       <button id="tab-m1" type="button" role="tab" data-fixture-tab="m1" aria-controls="fixture-m1" aria-selected="true" tabindex="0"><strong>M1</strong><span>原版菜单</span></button>
       <button id="tab-m660" type="button" role="tab" data-fixture-tab="m660" aria-controls="fixture-m660" aria-selected="false" tabindex="-1"><strong>M660</strong><span>M1 板显示演示</span></button>
+      <button id="tab-h7" type="button" role="tab" data-fixture-tab="h7" aria-controls="fixture-h7" aria-selected="false" tabindex="-1"><strong>H7</strong><span>原版 / 俄语盒子版</span></button>
     </div>
   </div>
       <section id="fixture-m1" class="workbench" role="tabpanel" aria-labelledby="tab-m1">
@@ -115,6 +116,33 @@
   <div class="m660-caption"><p id="m660-path"></p><p id="m660-selection" aria-live="polite"></p></div>
   <p id="m660-hint" class="hint" aria-live="polite"></p>
   <p class="muted demo-notice">沿用 M1 的图标、配色和显示样式，装入 M660 菜单内容。<br>改值仅作界面体验；不连接灯具，不执行控制。刷新网页会恢复演示初值。</p>
+</section>
+
+<section id="fixture-h7" class="workbench" role="tabpanel" aria-labelledby="tab-h7" hidden>
+  <div class="section-line"><h1>H7 菜单预览</h1><span>Stryker Spot · 160 × 128</span></div>
+  <div class="toolbar" role="group" aria-label="H7 预览控制">
+    <label for="h7-locale">预览版本</label>
+    <select id="h7-locale"><option value="en">原始程序 · English · V1.69</option><option value="ru">俄语盒子版 · Русский · V1.69 RU</option></select>
+    <div class="control-grid">
+      <button id="h7-home" class="control-card" type="button"><span class="control-title">⌂ 返回首页</span><span class="control-description">回到地址显示</span></button>
+      <button id="h7-reboot" class="control-card" type="button"><span class="control-title">↻ 模拟重启</span><span class="control-description">保留已确认的演示设置</span></button>
+      <button id="h7-sleep" class="control-card" type="button"><span class="control-title">☼ 切换背光</span><span class="control-description">暗屏时按键唤醒</span></button>
+    </div>
+  </div>
+  <div class="device">
+    <div class="device-label"><span>H7</span><span>STRYKER SPOT</span></div>
+    <div class="screen-frame"><canvas id="h7-lcd" width="160" height="128" role="img" aria-label="H7 菜单显示屏"></canvas></div>
+    <div class="buttons">
+      <button type="button" data-h7-key="menu"><span aria-hidden="true">◀</span>MENU</button>
+      <button type="button" data-h7-key="up"><span aria-hidden="true">▲</span>UP</button>
+      <button type="button" data-h7-key="down"><span aria-hidden="true">▼</span>DOWN</button>
+      <button type="button" data-h7-key="enter"><span aria-hidden="true">▶</span>ENTER</button>
+    </div>
+  </div>
+  <div class="h7-caption"><p id="h7-path"></p><p id="h7-selection" aria-live="polite"></p></div>
+  <p id="h7-hint" class="hint" aria-live="polite"></p>
+  <button id="h7-calibration" type="button">校准菜单预览</button>
+  <p class="muted demo-notice">原版与俄语版使用各自菜单文字和字模，保留 H7 图标与配色。<br>仅预览界面，不连接灯具；传感器、计时与动作结果为演示值。</p>
 </section>
 
 </main>
